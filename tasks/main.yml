@@ -1,0 +1,27 @@
+---
+
+- name: install pkgs
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - sudo
+
+- name: Create sudoers.d directory
+  ansible.builtin.file:
+    path: "/etc/sudoers.d"
+    state: directory
+
+- name: Rollout sudo rules
+  ansible.builtin.template:
+    src: "01-local-sudo-rules.j2"
+    dest: "/etc/sudoers.d/01-local-sudo-rules"
+    mode: 0644
+
+
+
+
+
+
+
